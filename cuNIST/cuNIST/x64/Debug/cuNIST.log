@@ -1,4 +1,4 @@
-﻿Build started 2015/11/18 22:33:55.
+﻿Build started 2015/11/18 22:38:10.
      1>Project "D:\GitHub\CUNIST\cuNIST\cuNIST\cuNIST.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D WIN64 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt ReadData.cpp
