@@ -2,6 +2,7 @@
 
 #include <cstdlib>		// import _byteswap_ulong from stdlib.h
 #include <cstdio>
+#include <iostream>
 
 #define bitRev(x) _byteswap_ulong(x)
 #define MAGIC_NUMBER_IMAGE 2051
@@ -112,4 +113,17 @@ ERROR_EXIT:					// Òì³£³ö¿Ú
 	fclose(imageFile);
 	fclose(labelFile);
 	return 0;
+}
+
+void changeImageArray(const unsigned char *images, unsigned char **destImages, const unsigned long width, const unsigned long height, const unsigned long length){
+	for (auto i = 0; i != length; i++) {
+		for (auto j = 0; j != width * height; j++) {
+			destImages[i][j] = images[i*width*height + j];
+		}
+	}
+	return;
+}
+
+void toBMPImage(const char* imageFileName, const unsigned char *images, const unsigned long width, const unsigned long height, const unsigned long length){
+
 }

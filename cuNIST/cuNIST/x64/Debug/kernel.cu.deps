@@ -1,18 +1,18 @@
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include\cuda_runtime.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\host_config.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\sal.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\ConcurrencySal.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\vadefs.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\sal.h
+D:\study\vs2013\VC\include\ConcurrencySal.h
+D:\study\vs2013\VC\include\vadefs.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\builtin_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\device_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\host_defines.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\driver_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\host_defines.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\limits.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stddef.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\limits.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\stddef.h
+D:\study\vs2013\VC\include\crtdefs.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\surface_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\driver_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\texture_types.h
@@ -77,12 +77,12 @@ c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\surface_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\texture_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\vector_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\host_defines.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\time.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\wtime.inl
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\time.inl
+D:\study\vs2013\VC\include\string.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\time.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\wtime.inl
+D:\study\vs2013\VC\include\time.inl
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\math_functions.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\builtin_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\device_types.h
@@ -91,19 +91,19 @@ c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\surface_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\texture_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\vector_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\host_defines.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\math.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdlib.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cmath
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\yvals.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xkeycheck.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\use_ansi.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\math.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xtgmath.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xtr1common
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cstdlib
+D:\study\vs2013\VC\include\math.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\stdlib.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\cmath
+D:\study\vs2013\VC\include\yvals.h
+D:\study\vs2013\VC\include\xkeycheck.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\use_ansi.h
+D:\study\vs2013\VC\include\math.h
+D:\study\vs2013\VC\include\xtgmath.h
+D:\study\vs2013\VC\include\xtr1common
+D:\study\vs2013\VC\include\cstdlib
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\math_functions.hpp
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\builtin_types.h
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\device_types.h
@@ -380,78 +380,78 @@ c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\device_launch_pa
 c:\program files\nvidia gpu computing toolkit\cuda\v7.5\include\vector_types.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include\cuda_runtime.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include\device_launch_parameters.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\iostream
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\istream
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\ostream
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\ios
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xlocnum
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\climits
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cstdio
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\swprintf.inl
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\streambuf
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xiosbase
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xlocale
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cstring
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdexcept
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\exception
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstddef
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cstddef
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\initializer_list
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\eh.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\malloc.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xmemory0
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\limits
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\ymath.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cfloat
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\float.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtwrn.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cwchar
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\wchar.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\new
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xutility
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\iosfwd
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdbg.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\type_traits
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xrefwrap
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xatomic0.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\intrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\setjmp.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\immintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\wmmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\nmmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\smmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\tmmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\pmmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\emmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xmmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\mmintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\ammintrin.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\typeinfo
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xlocinfo
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xlocinfo.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\ctype.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\locale.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xdebug
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xmemory
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xfacet
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\system_error
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\cerrno
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\errno.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\crtdefs.h
-G:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\share.h
-d:\github\cunist\cunist\cunist\ReadData.h
+D:\study\vs2013\VC\include\iostream
+D:\study\vs2013\VC\include\istream
+D:\study\vs2013\VC\include\ostream
+D:\study\vs2013\VC\include\ios
+D:\study\vs2013\VC\include\xlocnum
+D:\study\vs2013\VC\include\climits
+D:\study\vs2013\VC\include\cstdio
+D:\study\vs2013\VC\include\stdio.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\swprintf.inl
+D:\study\vs2013\VC\include\streambuf
+D:\study\vs2013\VC\include\xiosbase
+D:\study\vs2013\VC\include\xlocale
+D:\study\vs2013\VC\include\cstring
+D:\study\vs2013\VC\include\stdexcept
+D:\study\vs2013\VC\include\exception
+D:\study\vs2013\VC\include\xstddef
+D:\study\vs2013\VC\include\cstddef
+D:\study\vs2013\VC\include\initializer_list
+D:\study\vs2013\VC\include\eh.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\malloc.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\xstring
+D:\study\vs2013\VC\include\xmemory0
+D:\study\vs2013\VC\include\limits
+D:\study\vs2013\VC\include\ymath.h
+D:\study\vs2013\VC\include\cfloat
+D:\study\vs2013\VC\include\float.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\crtwrn.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\cwchar
+D:\study\vs2013\VC\include\wchar.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\new
+D:\study\vs2013\VC\include\xutility
+D:\study\vs2013\VC\include\utility
+D:\study\vs2013\VC\include\iosfwd
+D:\study\vs2013\VC\include\crtdbg.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\type_traits
+D:\study\vs2013\VC\include\xrefwrap
+D:\study\vs2013\VC\include\xatomic0.h
+D:\study\vs2013\VC\include\intrin.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\setjmp.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\immintrin.h
+D:\study\vs2013\VC\include\wmmintrin.h
+D:\study\vs2013\VC\include\nmmintrin.h
+D:\study\vs2013\VC\include\smmintrin.h
+D:\study\vs2013\VC\include\tmmintrin.h
+D:\study\vs2013\VC\include\pmmintrin.h
+D:\study\vs2013\VC\include\emmintrin.h
+D:\study\vs2013\VC\include\xmmintrin.h
+D:\study\vs2013\VC\include\mmintrin.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\ammintrin.h
+D:\study\vs2013\VC\include\typeinfo
+D:\study\vs2013\VC\include\xlocinfo
+D:\study\vs2013\VC\include\xlocinfo.h
+D:\study\vs2013\VC\include\ctype.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\locale.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\xdebug
+D:\study\vs2013\VC\include\xmemory
+D:\study\vs2013\VC\include\xfacet
+D:\study\vs2013\VC\include\system_error
+D:\study\vs2013\VC\include\cerrno
+D:\study\vs2013\VC\include\errno.h
+D:\study\vs2013\VC\include\crtdefs.h
+D:\study\vs2013\VC\include\share.h
+d:\study\cunist\cunist\cunist\ReadData.h
