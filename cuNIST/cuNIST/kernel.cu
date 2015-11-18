@@ -11,7 +11,8 @@ const char* trainLabelFileName = "train-labels.idx1-ubyte";
 const char* testImageFileName = "t10k-images.idx3-ubyte";
 const char* testLabelFileName = "t10k-labels.idx1-ubyte";
 
-struct SingleImage {
+class SingleImage {
+public:
 	const int width;
 	const int height;
 	unsigned char * data;
@@ -22,17 +23,15 @@ struct SingleImage {
 	~SingleImage() {
 		delete[] data;
 	}
-};
-
-void printSingleImage(SingleImage image) {
-	int temp;
-	for (int i = 0; i < image.height; i++) {
-		for (int j = 0; j < image.width; j++) {
-			printf("%d\t", image.data[i * image.width + j]);
+	void print() const {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				printf("%d\t", 0 + data[i * width + j]);
+			}
+			putchar('\n');
 		}
-		putchar('\n');
 	}
-}
+};
 
 int main() {
 	unsigned char* images;
@@ -50,8 +49,9 @@ int main() {
 
 	if (readData(trainImageFileName, trainLabelFileName, images, labels, width, height) != trainLength)
 		return 1;
+	printf("The label is %d\n", labels[0]);
 	SingleImage singleImage(width, height, images);
-	printSingleImage(singleImage);
+	singleImage.print();
 	delete[] images;
 	delete[] labels;
 	system("pause");
