@@ -36,7 +36,7 @@ struct LabelMetaData {
 	}
 };
 
-int readData(const char* imageFileName, const char* labelFileName, char *images, char *labels, int &width, int &height) {
+int readData(const char* imageFileName, const char* labelFileName, unsigned char *images, unsigned char *labels, int &width, int &height) {
 	FILE *imageFile;
 	FILE *labelFile;
 
@@ -94,11 +94,11 @@ int readData(const char* imageFileName, const char* labelFileName, char *images,
 	}
 
 	// ¶ÁÈ¡Êý¾Ý
-	if (fread_s(images, width * height * length * sizeof(char), sizeof(char), width * height * length, imageFile) != width * height * length) {
+	if (fread_s(images, width * height * length * sizeof(unsigned char), sizeof(unsigned char), width * height * length, imageFile) != width * height * length) {
 		puts("Error when loading data from image file");
 		goto ERROR_EXIT;
 	}
-	if (fread_s(labels, length * sizeof(char), sizeof(char), length, labelFile) != length) {
+	if (fread_s(labels, length * sizeof(unsigned char), sizeof(unsigned char), length, labelFile) != length) {
 		puts("Error when loading data from image file");
 		goto ERROR_EXIT;
 	}

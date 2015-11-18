@@ -16,6 +16,6 @@
  *
 */
 
-int readData(const char* imageFileName, const char* labelFileName, char *images, char *labels, int &width, int &height);
+int readData(const char* imageFileName, const char* labelFileName, unsigned char *images, unsigned char *labels, int &width, int &height);
 
 #endif
