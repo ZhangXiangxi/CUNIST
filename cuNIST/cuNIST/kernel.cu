@@ -21,6 +21,7 @@ int main() {
 	cout << "The train data total is: " << trainLength << endl;
 	cout << "The image width is: " << width << endl;
 	cout << "The image height is: " << height << endl;
+	system("pause");
 	return 0;
 }
 

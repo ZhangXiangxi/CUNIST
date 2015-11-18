@@ -8,13 +8,13 @@
 #define MAGIC_NUMBER_LABEL 2049
 
 struct ImageMetaData {
-	unsigned long magicNumber;
+	unsigned long magicNumber;		// 校验码
 	
-	unsigned long length;
-
-	unsigned long height;
+	unsigned long length;			// 样例数目
 	
-	unsigned long width;
+	unsigned long height;			// 图片高度
+	
+	unsigned long width;			// 图片宽度
 
 	// 转换大小端
 	void bitReverse(void) {
@@ -26,9 +26,9 @@ struct ImageMetaData {
 };
 
 struct LabelMetaData {
-	unsigned long magicNumber;
+	unsigned long magicNumber;		// 校验码
 
-	unsigned long length;
+	unsigned long length;			// 样例数目
 
 	void bitReverse(void) {
 		magicNumber = bitRev(magicNumber);
@@ -37,30 +37,37 @@ struct LabelMetaData {
 };
 
 int readData(const char* imageFileName, const char* labelFileName, char *images, char *labels, int &width, int &height) {
-	FILE* imageFile = nullptr;
-	FILE* labelFile = nullptr;
-	if (fopen_s(&imageFile, imageFileName, "rb") == 0) {
+	FILE *imageFile;
+	FILE *labelFile;
+
+	// 打开文件
+	if (fopen_s(&imageFile, imageFileName, "rb") != 0) {
 		puts("Can't read image file");
-		goto ERROR_EXIT;
+		return 0;
 	}
-	if (fopen_s(&labelFile, labelFileName, "rb") == 0) {
+	if (fopen_s(&labelFile, labelFileName, "rb") != 0) {
 		puts("Can't read label file");
-		goto ERROR_EXIT;
+		fclose(imageFile);
+		return 0;
 	}
 	
+	// 读入文件头(元数据)
 	ImageMetaData imageMetaData;
 	LabelMetaData labelMetaData;
-	if (fread_s(&imageMetaData, sizeof(imageMetaData), sizeof(imageMetaData), 1, imageFile) != sizeof(imageMetaData)) {
+	if (fread_s(&imageMetaData, sizeof(imageMetaData), sizeof(imageMetaData), 1, imageFile) != 1) {
 		puts("Can't read metadata from image file");
 		goto ERROR_EXIT;
 	}
-	if (fread_s(&labelMetaData, sizeof(labelMetaData), sizeof(labelMetaData), 1, labelFile) != sizeof(labelMetaData)) {
+	if (fread_s(&labelMetaData, sizeof(labelMetaData), sizeof(labelMetaData), 1, labelFile) != 1) {
 		puts("Can't read metadata from label file");
 		goto ERROR_EXIT;
 	}
 
+	// 转换大小端
 	imageMetaData.bitReverse();
 	labelMetaData.bitReverse();
+
+	// 检验数据有效性
 	if (imageMetaData.magicNumber != MAGIC_NUMBER_IMAGE) {
 		puts("Image magic number dismatches");
 		goto ERROR_EXIT;
@@ -73,30 +80,35 @@ int readData(const char* imageFileName, const char* labelFileName, char *images,
 		puts("Data length dismatches");
 		goto ERROR_EXIT;
 	}
+
+	// 读取长宽高数据
 	width = imageMetaData.width;
 	height = imageMetaData.height;
 	auto length = imageMetaData.length;
 
+	// 如果数据指针有空指针，就不读取
 	if (images == nullptr || labels == nullptr) {
 		fclose(imageFile);
 		fclose(labelFile);
 		return length;
 	}
 
-	if (fread_s(images, width * height * length * sizeof(char), sizeof(char), width * height * length, imageFile) 
-		!= width * height * length * sizeof(char)) {
+	// 读取数据
+	if (fread_s(images, width * height * length * sizeof(char), sizeof(char), width * height * length, imageFile) != width * height * length) {
 		puts("Error when loading data from image file");
 		goto ERROR_EXIT;
 	}
-	if (fread_s(labels, length * sizeof(char), sizeof(char), length, labelFile) != length * sizeof(char)) {
+	if (fread_s(labels, length * sizeof(char), sizeof(char), length, labelFile) != length) {
 		puts("Error when loading data from image file");
 		goto ERROR_EXIT;
 	}
+
+	// 关闭文件
 	fclose(imageFile);
 	fclose(labelFile);
 	return length;
 
-ERROR_EXIT:
+ERROR_EXIT:					// 异常出口
 	fclose(imageFile);
 	fclose(labelFile);
 	return 0;
