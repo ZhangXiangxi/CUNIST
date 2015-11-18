@@ -261,3 +261,13 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+*.sdf
+*.pdb
+*.log
+*.tlog
+*.deps
+*.obj
+*.pdb
+cuNIST/x64/Debug/cuNIST.exe
+*.ilk
+

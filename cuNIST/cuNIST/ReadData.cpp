@@ -2,7 +2,6 @@
 
 #include <cstdlib>		// import _byteswap_ulong from stdlib.h
 #include <cstdio>
-#include <iostream>
 
 #define bitRev(x) _byteswap_ulong(x)
 #define MAGIC_NUMBER_IMAGE 2051
