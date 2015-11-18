@@ -1,8 +1,6 @@
 #ifndef __CUNIST_READDATA_H
 #define __CUNIST_READDATA_H
 
-#include <string>	// import std::string from string
-
 /**
  *这个函数从指定的文件名中读入数据到指定指针指向的内容中，解析了 MNIST 的数据格式
  *如果数据指针为空指针，则只返回长度，不读取数据
