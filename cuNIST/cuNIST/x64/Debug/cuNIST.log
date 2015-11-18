@@ -1,28 +1,219 @@
-﻿生成启动时间为 2015/11/18 21:24:21。
+﻿生成启动时间为 2015/11/18 23:34:20。
      1>项目“D:\study\CUNIST\cuNIST\cuNIST\cuNIST.vcxproj”在节点 2 上(Build 个目标)。
      1>AddCudaCompileDeps:
          D:\study\vs2013\VC\bin\x86_amd64\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /DWIN32 /DWIN64 /D_DEBUG /D_CONSOLE /D_MBCS /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include" /I. /FIcuda_runtime.h /c D:\study\CUNIST\cuNIST\cuNIST\kernel.cu 
        CudaBuild:
          Compiling CUDA source file kernel.cu...
-         cmd.exe /C "C:\WINDOWS\TEMP\tmpecf5794183a94f15a92fda7c61499f8a.cmd"
+         cmd.exe /C "C:\WINDOWS\TEMP\tmp1b1905df1a8346c8bbfc948178e673c5.cmd"
          "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\nvcc.exe" -gencode=arch=compute_50,code=\"sm_50,compute_50\" --use-local-env --cl-version 2013 -ccbin "D:\study\vs2013\VC\bin\x86_amd64"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "D:\study\CUNIST\cuNIST\cuNIST\kernel.cu"
          
          D:\study\CUNIST\cuNIST\cuNIST>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\nvcc.exe" -gencode=arch=compute_50,code=\"sm_50,compute_50\" --use-local-env --cl-version 2013 -ccbin "D:\study\vs2013\VC\bin\x86_amd64"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "D:\study\CUNIST\cuNIST\cuNIST\kernel.cu" 
          kernel.cu
-       Link:
-         D:\study\vs2013\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\study\CUNIST\cuNIST\x64\Debug\cuNIST.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\lib\x64" cudnn.lib cublas.lib cudart.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\study\CUNIST\cuNIST\x64\Debug\cuNIST.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\study\CUNIST\cuNIST\x64\Debug\cuNIST.lib" /MACHINE:X64 x64\Debug\kernel.cu.obj
-         x64\Debug\ReadData.obj
-         cuNIST.vcxproj -> D:\study\CUNIST\cuNIST\x64\Debug\cuNIST.exe
-       PostBuildEvent:
-         echo copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\cudart*.dll" "D:\study\CUNIST\cuNIST\x64\Debug\"
-         copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\cudart*.dll" "D:\study\CUNIST\cuNIST\x64\Debug\"
-         :VCEnd
-         copy "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\cudart*.dll" "D:\study\CUNIST\cuNIST\x64\Debug\"
-         C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\cudart32_75.dll
-         C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\bin\cudart64_75.dll
-         已复制         2 个文件。
-     1>已完成生成项目“D:\study\CUNIST\cuNIST\cuNIST\cuNIST.vcxproj”(Build 个目标)的操作。
+       ClCompile:
+         D:\study\vs2013\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D WIN64 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt ReadData.cpp
+         ReadData.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(290): error C2146: 语法错误: 缺少“;”(在标识符“ptPosition”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(290): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(291): error C2146: 语法错误: 缺少“;”(在标识符“ptSize”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(291): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(292): error C2146: 语法错误: 缺少“;”(在标识符“wStyle”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(292): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(293): error C2146: 语法错误: 缺少“;”(在标识符“wPattern”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(293): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(423): error C2146: 语法错误: 缺少“;”(在标识符“DataBytes”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(423): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(424): error C2146: 语法错误: 缺少“;”(在标识符“InjectionPoint”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(424): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(425): error C2146: 语法错误: 缺少“;”(在标识符“PageNumber”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(425): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(511): error C2146: 语法错误: 缺少“;”(在标识符“bPageIndependent”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(511): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(512): error C2146: 语法错误: 缺少“;”(在标识符“bSetPageDevice”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(512): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(522): error C2146: 语法错误: 缺少“;”(在标识符“lOrientation”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(522): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(523): error C2146: 语法错误: 缺少“;”(在标识符“lWidth”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(523): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(524): error C2146: 语法错误: 缺少“;”(在标识符“lHeight”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(524): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(525): error C2146: 语法错误: 缺少“;”(在标识符“lWidthOffset”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(525): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(526): error C2146: 语法错误: 缺少“;”(在标识符“lHeightOffset”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(526): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(588): error C2146: 语法错误: 缺少“;”(在标识符“eM11”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(588): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(589): error C2146: 语法错误: 缺少“;”(在标识符“eM12”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(589): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(590): error C2146: 语法错误: 缺少“;”(在标识符“eM21”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(590): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(591): error C2146: 语法错误: 缺少“;”(在标识符“eM22”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(591): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(592): error C2146: 语法错误: 缺少“;”(在标识符“eDx”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(592): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(593): error C2146: 语法错误: 缺少“;”(在标识符“eDy”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(593): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(594): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(594): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(599): error C2146: 语法错误: 缺少“;”(在标识符“bmType”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(599): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(600): error C2146: 语法错误: 缺少“;”(在标识符“bmWidth”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(600): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(601): error C2146: 语法错误: 缺少“;”(在标识符“bmHeight”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(601): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(602): error C2146: 语法错误: 缺少“;”(在标识符“bmWidthBytes”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(602): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(603): error C2146: 语法错误: 缺少“;”(在标识符“bmPlanes”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(603): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(604): error C2146: 语法错误: 缺少“;”(在标识符“bmBitsPixel”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(604): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(605): error C2146: 语法错误: 缺少“;”(在标识符“bmBits”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(605): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606): error C2377: “FAR”: 重定义；typedef 不能由任何其他符号重载
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(594) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(617): error C2146: 语法错误: 缺少“;”(在标识符“rgbtBlue”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(617): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(618): error C2146: 语法错误: 缺少“;”(在标识符“rgbtGreen”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(618): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(619): error C2146: 语法错误: 缺少“;”(在标识符“rgbtRed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(619): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(620): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(620): error C2371: “NEAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“NEAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(620): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(620): error C2086: “int FAR”: 重定义
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(631): error C2146: 语法错误: 缺少“;”(在标识符“rgbBlue”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(631): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(632): error C2146: 语法错误: 缺少“;”(在标识符“rgbGreen”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(632): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(633): error C2146: 语法错误: 缺少“;”(在标识符“rgbRed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(633): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(634): error C2146: 语法错误: 缺少“;”(在标识符“rgbReserved”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(634): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(643): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(643): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(643): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(668): error C2146: 语法错误: 缺少“;”(在标识符“LCSCSTYPE”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(668): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(700): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(700): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(700): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(701): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(701): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(701): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(719): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(719): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(719): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(740): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(740): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(740): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(754): error C2146: 语法错误: 缺少“;”(在标识符“lcsSignature”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(754): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(755): error C2146: 语法错误: 缺少“;”(在标识符“lcsVersion”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(755): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(756): error C2146: 语法错误: 缺少“;”(在标识符“lcsSize”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(756): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(757): error C2146: 语法错误: 缺少“;”(在标识符“lcsCSType”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(757): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(760): error C2146: 语法错误: 缺少“;”(在标识符“lcsGammaRed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(760): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(761): error C2146: 语法错误: 缺少“;”(在标识符“lcsGammaGreen”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(761): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(762): error C2146: 语法错误: 缺少“;”(在标识符“lcsGammaBlue”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(762): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(763): error C2146: 语法错误: 缺少“;”(在标识符“lcsFilename”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(763): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(763): error C2065: “MAX_PATH”: 未声明的标识符
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(766): error C2146: 语法错误: 缺少“;”(在标识符“lcsSignature”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(766): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(767): error C2146: 语法错误: 缺少“;”(在标识符“lcsVersion”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(767): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(768): error C2146: 语法错误: 缺少“;”(在标识符“lcsSize”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(768): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(769): error C2146: 语法错误: 缺少“;”(在标识符“lcsCSType”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(769): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(772): error C2146: 语法错误: 缺少“;”(在标识符“lcsGammaRed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(772): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(773): error C2146: 语法错误: 缺少“;”(在标识符“lcsGammaGreen”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(773): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(774): error C2146: 语法错误: 缺少“;”(在标识符“lcsGammaBlue”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(774): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(775): error C2146: 语法错误: 缺少“;”(在标识符“lcsFilename”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(775): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(775): error C2065: “MAX_PATH”: 未声明的标识符
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(795): error C2146: 语法错误: 缺少“;”(在标识符“bcSize”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(795): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(796): error C2146: 语法错误: 缺少“;”(在标识符“bcWidth”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(796): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(797): error C2146: 语法错误: 缺少“;”(在标识符“bcHeight”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(797): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(798): error C2146: 语法错误: 缺少“;”(在标识符“bcPlanes”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(798): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(799): error C2146: 语法错误: 缺少“;”(在标识符“bcBitCount”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(799): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(800): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(800): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(800): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(809): error C2146: 语法错误: 缺少“;”(在标识符“biSize”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(809): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(812): error C2146: 语法错误: 缺少“;”(在标识符“biPlanes”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(812): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(813): error C2146: 语法错误: 缺少“;”(在标识符“biBitCount”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(813): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(814): error C2146: 语法错误: 缺少“;”(在标识符“biCompression”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(814): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(815): error C2146: 语法错误: 缺少“;”(在标识符“biSizeImage”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(815): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(818): error C2146: 语法错误: 缺少“;”(在标识符“biClrUsed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(818): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(819): error C2146: 语法错误: 缺少“;”(在标识符“biClrImportant”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(819): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(820): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(820): error C2371: “FAR”: 重定义；不同的基类型
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(606) : 参见“FAR”的声明
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(820): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(831): error C2146: 语法错误: 缺少“;”(在标识符“bV4Size”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(831): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(834): error C2146: 语法错误: 缺少“;”(在标识符“bV4Planes”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(834): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(835): error C2146: 语法错误: 缺少“;”(在标识符“bV4BitCount”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(835): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(836): error C2146: 语法错误: 缺少“;”(在标识符“bV4V4Compression”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(836): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(837): error C2146: 语法错误: 缺少“;”(在标识符“bV4SizeImage”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(837): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(840): error C2146: 语法错误: 缺少“;”(在标识符“bV4ClrUsed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(840): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(841): error C2146: 语法错误: 缺少“;”(在标识符“bV4ClrImportant”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(841): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(842): error C2146: 语法错误: 缺少“;”(在标识符“bV4RedMask”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(842): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(843): error C2146: 语法错误: 缺少“;”(在标识符“bV4GreenMask”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(843): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(844): error C2146: 语法错误: 缺少“;”(在标识符“bV4BlueMask”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(844): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(845): error C2146: 语法错误: 缺少“;”(在标识符“bV4AlphaMask”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(845): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(846): error C2146: 语法错误: 缺少“;”(在标识符“bV4CSType”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(846): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(848): error C2146: 语法错误: 缺少“;”(在标识符“bV4GammaRed”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(848): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(849): error C2146: 语法错误: 缺少“;”(在标识符“bV4GammaGreen”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(849): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(850): error C2146: 语法错误: 缺少“;”(在标识符“bV4GammaBlue”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(850): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(851): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\wingdi.h(851): fatal error C1003: 错误计数超过 100；正在停止编译
+     1>已完成生成项目“D:\study\CUNIST\cuNIST\cuNIST\cuNIST.vcxproj”(Build 个目标)的操作 - 失败。
 
-生成成功。
+生成失败。
 
-已用时间 00:00:05.34
+已用时间 00:00:10.31

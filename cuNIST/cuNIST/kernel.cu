@@ -54,7 +54,8 @@ int main() {
 	if (readData(trainImageFileName, trainLabelFileName, images, labels, width, height) != trainLength)
 		return 1;
 	changeImageArray(images, multiImages, width, height, trainLength);
-
+	char bmpfile[] = "image.bmp";
+	toBMPImage(bmpfile, images, width, height);
 	printf("The label is %d\n", labels[0]);
 	SingleImage singleImage(width, height, images);
 	singleImage.print();

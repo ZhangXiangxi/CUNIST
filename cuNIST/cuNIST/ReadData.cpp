@@ -3,6 +3,8 @@
 #include <cstdlib>		// import _byteswap_ulong from stdlib.h
 #include <cstdio>
 #include <iostream>
+#include <wingdi.h>
+#include <afx.h>
 
 #define bitRev(x) _byteswap_ulong(x)
 #define MAGIC_NUMBER_IMAGE 2051
@@ -124,6 +126,54 @@ void changeImageArray(const unsigned char *images, unsigned char **destImages, c
 	return;
 }
 
-void toBMPImage(const char* imageFileName, const unsigned char *images, const unsigned long width, const unsigned long height, const unsigned long length){
+void toBMPImage(const char* imageFileName, const unsigned char *images, const unsigned long width, const unsigned long height){
+	tagBITMAPFILEHEADER fileHeader;
+	tagBITMAPINFOHEADER infoHeader;
+	memset(&fileHeader, 0, sizeof(tagBITMAPFILEHEADER));
+	memset(&infoHeader, 0, sizeof(tagBITMAPINFOHEADER));
+	fileHeader.bfOffBits = DWORD(sizeof(BITMAPFILEHEADER)) + DWORD(sizeof(BITMAPINFOHEADER)) + sizeof(RGBQUAD) * 256;
+	fileHeader.bfSize = width*height + sizeof(RGBQUAD) * 256 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+	fileHeader.bfReserved1 = 0;
+	fileHeader.bfReserved2 = 0;
+	fileHeader.bfType = 'BM';
 
+	infoHeader.biBitCount = 8;
+	infoHeader.biSize = sizeof(BITMAPINFOHEADER);
+	infoHeader.biHeight = height;
+	infoHeader.biWidth = width;
+	infoHeader.biPlanes = 1;
+	infoHeader.biCompression = BI_RGB;
+	infoHeader.biSizeImage = 0;
+	infoHeader.biXPelsPerMeter = 0;
+	infoHeader.biYPelsPerMeter = 0;
+	infoHeader.biClrImportant = 0;
+	infoHeader.biClrUsed = 0;
+
+	RGBQUAD rgbquad[256];
+	for (auto i = 0; i < 256; i++)
+	{
+		rgbquad[i].rgbBlue = i;
+		rgbquad[i].rgbGreen = i;
+		rgbquad[i].rgbRed = i;
+		rgbquad[i].rgbReserved = 0;
+	}
+	char *targetBuf = new char[width*height];
+	for (auto i = height - 1; i >= 0; i--)
+	{
+		for (auto j = 0; j < width; j++)
+		{
+			targetBuf[i * width + j] = images[(height -1 - i) * width + j];
+		}
+	}
+	FILE *tarFile;
+	fopen_s(&tarFile, imageFileName, "rb");
+	CFile cf;
+
+	if (!cf.Open(LPCTSTR(imageFileName), CFile::modeCreate | CFile::modeWrite))
+		return;
+	cf.Write(&fileHeader, sizeof(tagBITMAPFILEHEADER));
+	cf.Write(&infoHeader, sizeof(tagBITMAPINFOHEADER));
+	cf.Write(&rgbquad, sizeof(RGBQUAD) * 256);
+	cf.Write(targetBuf, width * height);
+	cf.Close();
 }
