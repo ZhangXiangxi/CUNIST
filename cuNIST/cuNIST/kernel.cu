@@ -33,7 +33,7 @@ public:
 	}
 };
 
-int main() {
+int previousTest(void) {
 	unsigned char* images;
 	unsigned char* labels;
 	unsigned char** multiImages;  //多个图片的数组
@@ -68,5 +68,3 @@ int main() {
 	system("pause");
 	return 0;
 }
-
-

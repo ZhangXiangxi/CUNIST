@@ -12,6 +12,9 @@
     <CudaCompile Include="kernel.cu">
       <Filter>Source</Filter>
     </CudaCompile>
+    <CudaCompile Include="Main.cu">
+      <Filter>Source</Filter>
+    </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReadData.h">
