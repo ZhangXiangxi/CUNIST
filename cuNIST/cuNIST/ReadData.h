@@ -25,5 +25,5 @@ void changeImageArray(const unsigned char *images, unsigned char **destImages, c
 /**
 * 将其转换为BMP图片
 **/
-void toBMPImage(const char* imageFileName, const unsigned char *images, const unsigned long width, const unsigned long height);
+
 #endif
