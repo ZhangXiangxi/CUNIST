@@ -121,12 +121,3 @@ ERROR_EXIT: // Òì³£³ö¿Ú
 	fclose(labelFile);
 	return 0;
 }
-
-void changeImageArray(const unsigned char* images, unsigned char** destImages, const unsigned long width, const unsigned long height, const unsigned long length) {
-	for (auto i = 0; i != length; i++) {
-		for (auto j = 0; j != width * height; j++) {
-			destImages[i][j] = images[i * width * height + j];
-		}
-	}
-	return;
-}

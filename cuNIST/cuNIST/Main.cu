@@ -8,8 +8,6 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
-#include <map>
-#include <memory>
 #include <random>
 #include <sstream>
 #include <string>
@@ -23,39 +21,11 @@
 
 #include "ReadData.h"
 
+// 这个namespace里面的是LENET的代码
 namespace Lenet {
-	/*
-	* This code is released into the public domain.
-	*
-	* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-	* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-	* IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-	* OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-	* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-	* OTHER DEALINGS IN THE SOFTWARE.
-	*/
 
-	///////////////////////////////////////////////////////////////////////////////////////////
-	// Definitions and helper utilities
-
-	// Block width for CUDA kernels
+// Block width for CUDA kernels
 #define BW 128
-
-#ifdef USE_GFLAGS
-#include <gflags/gflags.h>
-
-#ifndef _WIN32
-#define gflags google
-#endif
-#else
-	// Constant versions of gflags
-#define DEFINE_int32(flag, default_value, description) const int FLAGS_##flag = (default_value)
-#define DEFINE_uint64(flag, default_value, description) const unsigned long long FLAGS_##flag = (default_value)
-#define DEFINE_bool(flag, default_value, description) const bool FLAGS_##flag = (default_value)
-#define DEFINE_double(flag, default_value, description) const double FLAGS_##flag = (default_value)
-#define DEFINE_string(flag, default_value, description) const std::string FLAGS_##flag ((default_value))
-#endif
 
 	/**
 	* Computes ceil(x / y) for integral nonnegative values.
@@ -67,14 +37,7 @@ namespace Lenet {
 	/**
 	* Saves a PGM grayscale image out of unsigned 8-bit data
 	*/
-	void SavePGMFile(const unsigned char* data, size_t width, size_t height, const char* filename) {
-		FILE* fp = fopen(filename, "wb");
-		if (fp) {
-			fprintf(fp, "P5\n%llu %llu\n255\n", width, height);
-			fwrite(data, sizeof(unsigned char), width * height, fp);
-			fclose(fp);
-		}
-	}
+	
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Error handling
@@ -111,25 +74,26 @@ namespace Lenet {
 	// Command-line flags
 
 	// Application parameters
-	DEFINE_int32(gpu, 0, "The GPU ID to use");
-	DEFINE_int32(iterations, 6000, "Number of iterations for training");
-	DEFINE_int32(random_seed, -1, "Override random seed (default uses std::random_device)");
-	DEFINE_int32(classify, -1, "Number of images to classify to compute error rate (default uses entire test set)");
+	const int FLAGS_gpu = 0;				// The GPU ID to use
+	const int FLAGS_iterations = 6000;		// Number of iterations for training
+	const int FLAGS_random_seed = -1;		// Override random seed (default uses std::random_device)
+	const int FLAGS_classify = -1;				// Number of images to classify to compute error rate (default uses entire test set)
 
 	// Batch parameters
-	DEFINE_uint64(batch_size, 64, "Batch size for training");
+	const int FLAGS_batch_size = 64;		// Batch size for training
+
 
 	// Filenames
-	DEFINE_bool(pretrained, false, "Use the pretrained CUDNN model as input");
-	DEFINE_string(train_images, "train-images.idx3-ubyte", "Training images filename");
-	DEFINE_string(train_labels, "train-labels.idx1-ubyte", "Training labels filename");
-	DEFINE_string(test_images, "t10k-images.idx3-ubyte", "Test images filename");
-	DEFINE_string(test_labels, "t10k-labels.idx1-ubyte", "Test labels filename");
+	const std::string FLAGS_train_images("train-images.idx3-ubyte");	// Training images filename
+	const std::string FLAGS_train_labels("train-labels.idx1-ubyte");	// Training labels filename
+	const std::string FLAGS_test_images("t10k-images.idx3-ubyte");		// Test images filename
+	const std::string FLAGS_test_labels("t10k-labels.idx1-ubyte");		// Test labels filename
+	const bool FLAGS_pretrained = false;								// Use the pretrained CUDNN model as input
 
 	// Solver parameters
-	DEFINE_double(learning_rate, 0.01, "Base learning rate");
-	DEFINE_double(lr_gamma, 0.0001, "Learning rate policy gamma");
-	DEFINE_double(lr_power, 0.75, "Learning rate policy power");
+	const double FLAGS_learning_rate = 0.01;		// Base learning rate
+	const double FLAGS_lr_gamma = 0.0001;			// Learning rate policy gamma
+	const double FLAGS_lr_power = 0.75;				// Learning rate policy power
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -649,10 +613,6 @@ namespace Lenet {
 	};
 
 	int mainLenet(int argc, char** argv) {
-#ifdef USE_GFLAGS
-		gflags::ParseCommandLineFlags(&argc, &argv, true);
-#endif
-
 		int width, height, channels = 1;
 
 		// Open input data
@@ -959,6 +919,7 @@ namespace Lenet {
 	}
 }
 
+// 这个namespace里面的才是我们的代码
 namespace OriginalCode {
 	using namespace std;
 
@@ -975,6 +936,7 @@ namespace OriginalCode {
 		SingleImage(int width, int height, unsigned char* sourceData) : width(width), height(height) {
 			data = new unsigned char[width * height];
 			memcpy_s(data, width*height, sourceData, width*height);
+			binarize();
 		}
 		~SingleImage() {
 			delete[] data;
@@ -986,6 +948,11 @@ namespace OriginalCode {
 				}
 				putchar('\n');
 			}
+		}
+	private:
+		void binarize(void) {
+			for (int i = 0; i < width*height; i++)
+				data[i] = (static_cast<signed char>(data[i]) < 0) ? -1 : 0;
 		}
 	};
 
@@ -1027,6 +994,6 @@ namespace OriginalCode {
 // Main function
 
 int main(int argc, char** argv) {
-	return OriginalCode::previousTest(argc, argv);
+	return Lenet::mainLenet(argc, argv);
 }
 

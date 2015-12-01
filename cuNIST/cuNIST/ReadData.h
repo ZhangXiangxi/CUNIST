@@ -15,15 +15,6 @@
  *@return: 返回数据的数目
  *
 */
-
 int readData(const char* imageFileName, const char* labelFileName, unsigned char *images, unsigned char *labels, int &width, int &height);
-/**
-* 将图片数组转换为多个图片的二维数组
-**/
-void changeImageArray(const unsigned char *images, unsigned char **destImages, const unsigned long width, const unsigned long height, const unsigned long length);
-
-/**
-* 将其转换为BMP图片
-**/
 
 #endif
