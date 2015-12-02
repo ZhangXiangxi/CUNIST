@@ -4,9 +4,6 @@
 
 #include <cstdio>
 //<<<<<<< HEAD
-#include <iostream>
-#include <afx.h>
-#include <wingdi.h>
 
 //=======
 //>>>>>>> 0a143ed52e4710f2faa537b33ef8b4f520d592a8
