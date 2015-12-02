@@ -76,8 +76,6 @@ namespace Lenet {
 	// Application parameters
 	const int FLAGS_gpu = 0;				// The GPU ID to use
 	const int FLAGS_iterations = 6000;		// Number of iterations for training
-	const int FLAGS_random_seed = -1;		// Override random seed (default uses std::random_device)
-	const int FLAGS_classify = -1;				// Number of images to classify to compute error rate (default uses entire test set)
 
 	// Batch parameters
 	const int FLAGS_batch_size = 64;		// Batch size for training
@@ -624,8 +622,8 @@ namespace Lenet {
 		if (train_size == 0)
 			return 1;
 
-		std::vector<uint8_t> train_images(train_size * width * height * channels), train_labels(train_size);
-		std::vector<uint8_t> test_images(test_size * width * height * channels), test_labels(test_size);
+		std::vector<unsigned char> train_images(train_size * width * height * channels), train_labels(train_size);
+		std::vector<unsigned char> test_images(test_size * width * height * channels), test_labels(test_size);
 
 		// Read data from datasets
 		if (readData(FLAGS_train_images.c_str(), FLAGS_train_labels.c_str(), &train_images[0], &train_labels[0], width, height) != train_size)
@@ -634,24 +632,8 @@ namespace Lenet {
 			return 3;
 
 		printf("Done. Training dataset size: %d, Test dataset size: %d\n", (int)train_size, (int)test_size);
-		printf("Batch size: %llu, iterations: %d\n", FLAGS_batch_size, FLAGS_iterations);
+		printf("Batch size: %d, iterations: %d\n", FLAGS_batch_size, FLAGS_iterations);
 
-		// This code snippet saves a random image and its label
-		/*
-		std::random_device rd_image;
-		int random_image = rd_image() % train_size;
-		std::stringstream ss; ss << "image-" << (int)train_labels[random_image] << ".pgm";
-		SavePGMFile(&train_images[0] + random_image * width*height*channels, width, height, ss.str().c_str());
-		*/
-
-		// Choose GPU
-		int num_gpus;
-		checkCudaErrors(cudaGetDeviceCount(&num_gpus));
-		if (FLAGS_gpu < 0 || FLAGS_gpu >= num_gpus) {
-			printf("ERROR: Invalid GPU ID %d (There are %d GPUs on this machine)\n",
-				FLAGS_gpu, num_gpus);
-			return 4;
-		}
 
 		// Create the LeNet network architecture
 		ConvBiasLayer conv1((int)channels, 20, 5, (int)width, (int)height);
@@ -666,45 +648,37 @@ namespace Lenet {
 		TrainingContext context(FLAGS_gpu, FLAGS_batch_size, conv1, pool1, conv2, pool2, fc1, fc2);
 
 		// Determine initial network structure
-		if (FLAGS_pretrained) {
-			conv1.FromFile("conv1");
-			conv2.FromFile("conv2");
-			fc1.FromFile("ip1");
-			fc2.FromFile("ip2");
-		}
-		else {
-			// Create random network
-			std::random_device rd;
-			std::mt19937 gen(FLAGS_random_seed < 0 ? rd() : static_cast<unsigned int>(FLAGS_random_seed));
+		// Create random network
+		std::random_device rd;
+		std::mt19937 gen(rd());
 
-			// Xavier weight filling
-			float wconv1 = sqrt(3.0f / (conv1.kernel_size * conv1.kernel_size * conv1.in_channels));
-			std::uniform_real_distribution<> dconv1(-wconv1, wconv1);
-			float wconv2 = sqrt(3.0f / (conv2.kernel_size * conv2.kernel_size * conv2.in_channels));
-			std::uniform_real_distribution<> dconv2(-wconv2, wconv2);
-			float wfc1 = sqrt(3.0f / (fc1.inputs * fc1.outputs));
-			std::uniform_real_distribution<> dfc1(-wfc1, wfc1);
-			float wfc2 = sqrt(3.0f / (fc2.inputs * fc2.outputs));
-			std::uniform_real_distribution<> dfc2(-wfc2, wfc2);
+		// Xavier weight filling
+		float wconv1 = sqrt(3.0f / (conv1.kernel_size * conv1.kernel_size * conv1.in_channels));
+		std::uniform_real_distribution<> dconv1(-wconv1, wconv1);
+		float wconv2 = sqrt(3.0f / (conv2.kernel_size * conv2.kernel_size * conv2.in_channels));
+		std::uniform_real_distribution<> dconv2(-wconv2, wconv2);
+		float wfc1 = sqrt(3.0f / (fc1.inputs * fc1.outputs));
+		std::uniform_real_distribution<> dfc1(-wfc1, wfc1);
+		float wfc2 = sqrt(3.0f / (fc2.inputs * fc2.outputs));
+		std::uniform_real_distribution<> dfc2(-wfc2, wfc2);
 
-			// Randomize network
-			for (auto&& iter : conv1.pconv)
-				iter = static_cast<float>(dconv1(gen));
-			for (auto&& iter : conv1.pbias)
-				iter = static_cast<float>(dconv1(gen));
-			for (auto&& iter : conv2.pconv)
-				iter = static_cast<float>(dconv2(gen));
-			for (auto&& iter : conv2.pbias)
-				iter = static_cast<float>(dconv2(gen));
-			for (auto&& iter : fc1.pneurons)
-				iter = static_cast<float>(dfc1(gen));
-			for (auto&& iter : fc1.pbias)
-				iter = static_cast<float>(dfc1(gen));
-			for (auto&& iter : fc2.pneurons)
-				iter = static_cast<float>(dfc2(gen));
-			for (auto&& iter : fc2.pbias)
-				iter = static_cast<float>(dfc2(gen));
-		}
+		// Randomize network
+		for (auto&& iter : conv1.pconv)
+			iter = static_cast<float>(dconv1(gen));
+		for (auto&& iter : conv1.pbias)
+			iter = static_cast<float>(dconv1(gen));
+		for (auto&& iter : conv2.pconv)
+			iter = static_cast<float>(dconv2(gen));
+		for (auto&& iter : conv2.pbias)
+			iter = static_cast<float>(dconv2(gen));
+		for (auto&& iter : fc1.pneurons)
+			iter = static_cast<float>(dfc1(gen));
+		for (auto&& iter : fc1.pbias)
+			iter = static_cast<float>(dfc1(gen));
+		for (auto&& iter : fc2.pneurons)
+			iter = static_cast<float>(dfc2(gen));
+		for (auto&& iter : fc2.pbias)
+			iter = static_cast<float>(dfc2(gen));
 
 		/////////////////////////////////////////////////////////////////////////////
 		// Create GPU data structures	
@@ -835,18 +809,18 @@ namespace Lenet {
 
 		printf("Iteration time: %f ms\n", std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() / 1000.0f / FLAGS_iterations);
 
-		float classification_error = 1.0f;
+		
 
-		int classifications = FLAGS_classify;
-		if (classifications < 0)
-			classifications = (int)test_size;
-
+		
 		// Test the resulting neural network's classification
-		if (classifications > 0) {
+		do {
+			float classification_error = 1.0f;
+			int classifications = test_size;
 			// Initialize a TrainingContext structure for testing (different batch size)
 			TrainingContext test_context(FLAGS_gpu, 1, conv1, pool1, conv2, pool2, fc1, fc2);
 
 			int num_errors = 0;
+
 			for (int i = 0; i < classifications; ++i) {
 				std::vector<float> data(width * height);
 				// Normalize image to be in [0,1]
@@ -857,8 +831,8 @@ namespace Lenet {
 
 				// Forward propagate test image
 				test_context.ForwardPropagation(d_data, d_conv1, d_pool1, d_conv2, d_pool2, d_fc1, d_fc1relu, d_fc2, d_fc2smax,
-					d_pconv1, d_pconv1bias, d_pconv2, d_pconv2bias, d_pfc1, d_pfc1bias,
-					d_pfc2, d_pfc2bias, d_cudnn_workspace, d_onevec);
+				                                d_pconv1, d_pconv1bias, d_pconv2, d_pconv2bias, d_pfc1, d_pfc1bias,
+				                                d_pfc2, d_pfc2bias, d_cudnn_workspace, d_onevec);
 
 				// Perform classification
 				std::vector<float> class_vec(10);
@@ -878,7 +852,8 @@ namespace Lenet {
 			classification_error = (float)num_errors / (float)classifications;
 
 			printf("Classification result: %.2f%% error (used %d images)\n", classification_error * 100.0f, (int)classifications);
-		}
+		} while (false);
+		
 
 		// Free data structures
 		checkCudaErrors(cudaFree(d_data));
