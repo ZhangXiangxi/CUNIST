@@ -131,3 +131,4 @@ cuNIST/x64/Debug/cuNIST.exe
 *.ilk
 cuNIST/cuNIST.v12.suo
 cuNIST/cuNIST/x64/Debug/cuNIST.tlog/cl.command.1.tlog
+cuNIST/*.sdf
