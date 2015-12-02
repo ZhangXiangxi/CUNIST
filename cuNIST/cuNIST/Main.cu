@@ -24,7 +24,7 @@
 // 这个namespace里面的是LENET的代码
 namespace Lenet {
 
-// Block width for CUDA kernels
+	// Block width for CUDA kernels
 #define BW 128
 
 	/**
@@ -37,7 +37,7 @@ namespace Lenet {
 	/**
 	* Saves a PGM grayscale image out of unsigned 8-bit data
 	*/
-	
+
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Error handling
@@ -51,23 +51,23 @@ namespace Lenet {
     std::cerr << _message.str() << "\nAborting...\n";                  \
     cudaDeviceReset();                                                 \
     exit(1);                                                           \
-	} while(0)
+		} while(0)
 
 #define checkCUDNN(status) do {                                        \
     std::stringstream _error;                                          \
     if (status != CUDNN_STATUS_SUCCESS) {                              \
       _error << "CUDNN failure: " << cudnnGetErrorString(status);      \
       FatalError(_error.str());                                        \
-		    }                                                                  \
-	} while(0)
+			    }                                                                  \
+		} while(0)
 
 #define checkCudaErrors(status) do {                                   \
     std::stringstream _error;                                          \
     if (status != 0) {                                                 \
       _error << "Cuda failure: " << status;                            \
       FatalError(_error.str());                                        \
-		    }                                                                  \
-	} while(0)
+			    }                                                                  \
+		} while(0)
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,6 @@ namespace Lenet {
 	const std::string FLAGS_train_labels("train-labels.idx1-ubyte");	// Training labels filename
 	const std::string FLAGS_test_images("t10k-images.idx3-ubyte");		// Test images filename
 	const std::string FLAGS_test_labels("t10k-labels.idx1-ubyte");		// Test labels filename
-	const bool FLAGS_pretrained = false;								// Use the pretrained CUDNN model as input
 
 	// Solver parameters
 	const double FLAGS_learning_rate = 0.01;		// Base learning rate
@@ -252,7 +251,7 @@ namespace Lenet {
 
 		TrainingContext(int gpuid, int batch_size,
 			ConvBiasLayer& conv1, MaxPoolLayer& pool1, ConvBiasLayer& conv2, MaxPoolLayer& pool2,
-			FullyConnectedLayer& fc1, FullyConnectedLayer& fc2) : ref_fc1(fc1), ref_fc2(fc2), m_gpuid(gpuid) {
+			FullyConnectedLayer& fc1, FullyConnectedLayer& fc2) : m_gpuid(gpuid), ref_fc1(fc1), ref_fc2(fc2) {
 			m_batchSize = batch_size;
 
 			// Create CUBLAS and CUDNN handles
@@ -610,6 +609,63 @@ namespace Lenet {
 		}
 	};
 
+	void testResult(int test_size,
+		ConvBiasLayer conv1, MaxPoolLayer pool1,
+		ConvBiasLayer conv2, MaxPoolLayer pool2,
+		FullyConnectedLayer fc1, FullyConnectedLayer fc2,
+		float *d_conv1, float *d_pool1,
+		float *d_conv2, float *d_pool2,
+		float *d_fc1, float *d_fc1relu,
+		float *d_fc2, float *d_fc2smax,
+		float *d_pconv1, float *d_pconv1bias,
+		float *d_pconv2, float *d_pconv2bias,
+		float *d_pfc1, float *d_pfc1bias,
+		float *d_pfc2, float *d_pfc2bias,
+		float * d_onevec, void* d_cudnn_workspace,
+		float * d_data,
+		int width, int height, int channels,
+		unsigned char* test_images, unsigned char *test_labels) {
+		float classification_error = 1.0f;
+		int classifications = test_size;
+		// Initialize a TrainingContext structure for testing (different batch size)
+		TrainingContext test_context(FLAGS_gpu, 1, conv1, pool1, conv2, pool2, fc1, fc2);
+
+		int num_errors = 0;
+
+		for (int i = 0; i < classifications; ++i) {
+			std::vector<float> data(width * height);
+			// Normalize image to be in [0,1]
+			for (int j = 0; j < width * height; ++j)
+				data[j] = (float)test_images[i * width * height * channels + j] / 255.0f;
+
+
+			checkCudaErrors(cudaMemcpyAsync(d_data, &data[0], sizeof(float) * width * height, cudaMemcpyHostToDevice));
+
+			// Forward propagate test image
+			test_context.ForwardPropagation(d_data, d_conv1, d_pool1, d_conv2, d_pool2, d_fc1, d_fc1relu, d_fc2, d_fc2smax,
+				d_pconv1, d_pconv1bias, d_pconv2, d_pconv2bias, d_pfc1, d_pfc1bias,
+				d_pfc2, d_pfc2bias, d_cudnn_workspace, d_onevec);
+
+			// Perform classification
+			std::vector<float> class_vec(10);
+
+			// Copy back result
+			checkCudaErrors(cudaMemcpy(&class_vec[0], d_fc2smax, sizeof(float) * 10, cudaMemcpyDeviceToHost));
+
+			// Determine classification according to maximal response
+			int chosen = 0;
+			for (int id = 1; id < 10; ++id) {
+				if (class_vec[chosen] < class_vec[id]) chosen = id;
+			}
+
+			if (chosen != test_labels[i])
+				++num_errors;
+		}
+		classification_error = (float)num_errors / (float)classifications;
+
+		printf("Classification result: %.2f%% error (used %d images)\n", classification_error * 100.0f, (int)classifications);
+	}
+
 	int mainLenet(int argc, char** argv) {
 		int width, height, channels = 1;
 
@@ -617,8 +673,8 @@ namespace Lenet {
 		printf("Reading input data\n");
 
 		// Read dataset sizes
-		size_t train_size = readData(FLAGS_train_images.c_str(), FLAGS_train_labels.c_str(), nullptr, nullptr, width, height);
-		size_t test_size = readData(FLAGS_test_images.c_str(), FLAGS_test_labels.c_str(), nullptr, nullptr, width, height);
+		int train_size = readData(FLAGS_train_images.c_str(), FLAGS_train_labels.c_str(), nullptr, nullptr, width, height);
+		int test_size = readData(FLAGS_test_images.c_str(), FLAGS_test_labels.c_str(), nullptr, nullptr, width, height);
 		if (train_size == 0)
 			return 1;
 
@@ -809,51 +865,10 @@ namespace Lenet {
 
 		printf("Iteration time: %f ms\n", std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() / 1000.0f / FLAGS_iterations);
 
-		
-
-		
 		// Test the resulting neural network's classification
-		do {
-			float classification_error = 1.0f;
-			int classifications = test_size;
-			// Initialize a TrainingContext structure for testing (different batch size)
-			TrainingContext test_context(FLAGS_gpu, 1, conv1, pool1, conv2, pool2, fc1, fc2);
+		testResult(test_size, conv1, pool1, conv2, pool2, fc1, fc2, d_conv1, d_pool1, d_pool2, d_conv2, d_fc1, d_fc1relu, d_fc2, d_fc2smax, d_pconv1,
+			d_pconv1bias, d_pconv2, d_pconv1bias, d_pfc1, d_pfc1bias, d_pfc2, d_pfc2bias, d_onevec, d_cudnn_workspace, d_data, width, height, channels, &test_images[0], &test_labels[0]);
 
-			int num_errors = 0;
-
-			for (int i = 0; i < classifications; ++i) {
-				std::vector<float> data(width * height);
-				// Normalize image to be in [0,1]
-				for (int j = 0; j < width * height; ++j)
-					data[j] = (float)test_images[i * width * height * channels + j] / 255.0f;
-
-				checkCudaErrors(cudaMemcpyAsync(d_data, &data[0], sizeof(float) * width * height, cudaMemcpyHostToDevice));
-
-				// Forward propagate test image
-				test_context.ForwardPropagation(d_data, d_conv1, d_pool1, d_conv2, d_pool2, d_fc1, d_fc1relu, d_fc2, d_fc2smax,
-				                                d_pconv1, d_pconv1bias, d_pconv2, d_pconv2bias, d_pfc1, d_pfc1bias,
-				                                d_pfc2, d_pfc2bias, d_cudnn_workspace, d_onevec);
-
-				// Perform classification
-				std::vector<float> class_vec(10);
-
-				// Copy back result
-				checkCudaErrors(cudaMemcpy(&class_vec[0], d_fc2smax, sizeof(float) * 10, cudaMemcpyDeviceToHost));
-
-				// Determine classification according to maximal response
-				int chosen = 0;
-				for (int id = 1; id < 10; ++id) {
-					if (class_vec[chosen] < class_vec[id]) chosen = id;
-				}
-
-				if (chosen != test_labels[i])
-					++num_errors;
-			}
-			classification_error = (float)num_errors / (float)classifications;
-
-			printf("Classification result: %.2f%% error (used %d images)\n", classification_error * 100.0f, (int)classifications);
-		} while (false);
-		
 
 		// Free data structures
 		checkCudaErrors(cudaFree(d_data));
@@ -951,7 +966,7 @@ namespace OriginalCode {
 
 		if (readData(trainImageFileName, trainLabelFileName, images, labels, width, height) != trainLength)
 			return 1;
-		
+
 		printf("The label is %d\n", labels[0]);
 		SingleImage singleImage(width, height, images);
 		singleImage.print();
