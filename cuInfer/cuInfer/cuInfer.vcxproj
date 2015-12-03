@@ -150,7 +150,9 @@
     <ClInclude Include="jni_md.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cunist_CalculateByGPU.cu" />
+    <CudaCompile Include="cunist_CalculateByGPU.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

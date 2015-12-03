@@ -62,7 +62,7 @@ const string FLAGS_train_images("train-images.idx3-ubyte");	// Training images f
 const string FLAGS_train_labels("train-labels.idx1-ubyte");	// Training labels filename
 const string FLAGS_test_images("t10k-images.idx3-ubyte");		// Test images filename
 const string FLAGS_test_labels("t10k-labels.idx1-ubyte");		// Test labels filename
-const string DATA_FILE_NAME("IntervalData");					// Interval Data Filename
+const string DATA_FILE_NAME("D:\\IntervalData.dat");					// Interval Data Filename
 
 // Solver parameters
 const double FLAGS_learning_rate = 0.01;		// Base learning rate
@@ -421,7 +421,7 @@ struct TrainingContext {
 		checkCudaErrors(cudaMemcpyAsync(dloss_data, fc2smax, sizeof(float) * m_batchSize * ref_fc2.outputs, cudaMemcpyDeviceToDevice));
 
 		// Softmax layer
-		//SoftmaxLossBackprop << <RoundUp(m_batchSize, BW), BW >> >(labels, ref_fc2.outputs, m_batchSize, dloss_data);
+		SoftmaxLossBackprop << <RoundUp(m_batchSize, BW), BW >> >(labels, ref_fc2.outputs, m_batchSize, dloss_data);
 
 		// Accounting for batch size in SGD
 		checkCudaErrors(cublasSscal(cublasHandle, ref_fc2.outputs * m_batchSize, &scalVal, dloss_data, 1));
@@ -574,7 +574,10 @@ void loadFromFile(std::string filename,
 	float* d_pfc2, float* d_pfc2bias,
 	float* d_onevec) {
 	FILE* dataFile;
-	dataFile = fopen((filename + ".dat").c_str(), "rb");
+	/*if ((dataFile = fopen((filename + ".dat").c_str(), "rb")) == nullptr) {
+		
+	}*/
+	dataFile = fopen(DATA_FILE_NAME.c_str(), "rb");
 	float* temp = new float[400000];
 
 #define loadTempFromFile(count) fread(temp, sizeof(float), count, dataFile)

@@ -32,8 +32,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cunist_CalculateByGPU.cu">
+    <CudaCompile Include="cunist_CalculateByGPU.cu">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </CudaCompile>
   </ItemGroup>
 </Project>
