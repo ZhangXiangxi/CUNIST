@@ -18,4 +18,6 @@ JNIEXPORT jint JNICALL Java_cunist_CalculateByGPU_inference
 #ifdef __cplusplus
 }
 #endif
+
+
 #endif
