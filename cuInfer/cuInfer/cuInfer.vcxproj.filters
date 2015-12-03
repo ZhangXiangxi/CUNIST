@@ -24,10 +24,16 @@
     <ClInclude Include="jni_md.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cuda_runtime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="device_launch_parameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cunist_CalculateByGPU.cpp">
+    <CudaCompile Include="cunist_CalculateByGPU.cu">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </CudaCompile>
   </ItemGroup>
 </Project>

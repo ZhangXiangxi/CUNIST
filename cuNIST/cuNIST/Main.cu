@@ -27,18 +27,6 @@ namespace Lenet {
 	// Block width for CUDA kernels
 #define BW 128
 
-	/**
-	* Computes ceil(x / y) for integral nonnegative values.
-	*/
-	static inline unsigned int RoundUp(unsigned int nominator, unsigned int denominator) {
-		return (nominator + denominator - 1) / denominator;
-	}
-
-	/**
-	* Saves a PGM grayscale image out of unsigned 8-bit data
-	*/
-
-
 	//////////////////////////////////////////////////////////////////////////////
 	// Error handling
 	// Adapted from the CUDNN classification code 
@@ -58,7 +46,7 @@ namespace Lenet {
     if (status != CUDNN_STATUS_SUCCESS) {                              \
       _error << "CUDNN failure: " << cudnnGetErrorString(status);      \
       FatalError(_error.str());                                        \
-			    }                                                                  \
+					    }                                                  \
 		} while(0)
 
 #define checkCudaErrors(status) do {                                   \
@@ -66,8 +54,15 @@ namespace Lenet {
     if (status != 0) {                                                 \
       _error << "Cuda failure: " << status;                            \
       FatalError(_error.str());                                        \
-			    }                                                                  \
+					    }                                                  \
 		} while(0)
+
+	/**
+	* Computes ceil(x / y) for integral nonnegative values.
+	*/
+	static inline unsigned int RoundUp(unsigned int nominator, unsigned int denominator) {
+		return (nominator + denominator - 1) / denominator;
+	}
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////
