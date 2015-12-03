@@ -2,6 +2,7 @@ package cunist;
 
 import com.sun.deploy.security.DecisionTime;
 import com.sun.javafx.binding.StringFormatter;
+import com.sun.javafx.runtime.SystemProperties;
 import javafx.scene.input.DataFormat;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,7 @@ import java.util.Random;
 public class WriteCanvas extends Canvas {
     private static int widthAndHeight = 28;
     private static int canvasWidth = 350;
+    private CalculateByGPU calculateByGPU = new CalculateByGPU();
     public int[] prePoints;
     public int[] nowPoints;
     private boolean first = true;
@@ -57,14 +59,6 @@ public class WriteCanvas extends Canvas {
         }
         first = false;
     }
-    public double[] getPro(){
-        double[] result = new double[10];
-        Random ran = new Random();
-        for (int i = 0; i < 10; i++) {
-            result[i] = ran.nextDouble() % 1.0;
-        }
-        return result;
-    }
     class CanvasListener implements MouseMotionListener, MouseListener {
 
         private final WriteCanvas canvas;
@@ -99,7 +93,6 @@ public class WriteCanvas extends Canvas {
                         null);
                 Graphics2D graphics2D1 = (Graphics2D) canvas.getGraphics();
                 graphics2D1.drawImage(newImage, 0, 0, null);
-                ImageIO.write(newImage, "bmp", new File("test.bmp"));
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -114,13 +107,14 @@ public class WriteCanvas extends Canvas {
                 }
             }
             int max = 0;
-            double[] pro = getPro();
+            double[] pro = new double[10];
+            int sta = calculateByGPU.get(grayByte, pro);
             for (int i = 0; i < 10; i++) {
-                Color c = new Color(255, 255-(int)(255*pro[i]), 255-(int)(255*pro[i]));
+                Color c = new Color(255, 255 - (int) (255 * pro[i]), 255 - (int) (255 * pro[i]));
                 mainGra.numberJLabels[i].setForeground(c);
                 DecimalFormat df = new DecimalFormat("0.000000000000");
                 mainGra.proJLabels[i].setText(df.format(pro[i]));
-                if (pro[i] > pro[max]){
+                if (pro[i] > pro[max]) {
                     max = i;
                 }
             }

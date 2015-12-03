@@ -1,4 +1,6 @@
 #include "cunist_CalculateByGPU.h"
+#include <stdlib.h>
+#include <time.h>
 /**
 	status inference(char * data, char * &result)
 	@return	: 返回错误码，如果没有错误就返回0
@@ -13,8 +15,11 @@ JNIEXPORT jint JNICALL Java_cunist_CalculateByGPU_inference
 	for (int i = 0; i < 784; i++) {
 		i = (i < 0) ? i : i;
 	}
+	srand(time(NULL));
 	double* CResult = env->GetDoubleArrayElements(result, NULL);
-	for (int i = 0; i < 10; i++)
-		CResult[i] = 0.233;
-	return 0;
+	for (int i = 0; i < 10; i++){
+		CResult[i] = rand()%8 * 0.1122223333444;
+	}
+	env->ReleaseDoubleArrayElements(result, CResult, 0);
+	return 33;
 }

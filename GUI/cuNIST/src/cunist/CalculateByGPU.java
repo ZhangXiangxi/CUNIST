@@ -6,13 +6,10 @@ package cunist;
 public class CalculateByGPU {
     public native int inference(byte[] data, double[] result);
     static{
-        System.loadLibrary("calculate");
+        System.loadLibrary("cuInfer");
     }
-    public double[] pros;
-    public int get(){
-        byte[] d = new byte[10];
-        double[] r = new double[10];
-        int sta = inference(d, r);
+    public int get(byte[] b, double[] pros){
+        int sta = inference(b, pros);
         return sta;
     }
 }
