@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="cunist">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/src/cunist" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

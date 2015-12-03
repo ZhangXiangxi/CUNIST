@@ -86,6 +86,7 @@ namespace Lenet {
 	const std::string FLAGS_train_labels("train-labels.idx1-ubyte");	// Training labels filename
 	const std::string FLAGS_test_images("t10k-images.idx3-ubyte");		// Test images filename
 	const std::string FLAGS_test_labels("t10k-labels.idx1-ubyte");		// Test labels filename
+	const std::string DATA_FILE_NAME("IntervalData");					// Interval Data Filename
 
 	// Solver parameters
 	const double FLAGS_learning_rate = 0.01;		// Base learning rate
@@ -609,28 +610,146 @@ namespace Lenet {
 		}
 	};
 
+	/**
+	* ÎÄ¼þÄÚÈÝ:
+	* float[1*5*5*20]	pconv1
+	* float[20]			pconv1bias
+	* float[20*5*5*50]	pconv2
+	* float[50]			pconv2bias
+	* float[400000]		pfc1
+	* float[500]		pfc1bias
+	* float[500*10]		pfc2
+	* float[10]			pfc2bias
+	* float[64]			onevec
+	*/
+	void saveToFile(std::string filename,
+		float* d_pconv1, float* d_pconv1bias,
+		float* d_pconv2, float* d_pconv2bias,
+		float* d_pfc1, float* d_pfc1bias,
+		float* d_pfc2, float* d_pfc2bias,
+		float* d_onevec) {
+		FILE* dataFile;
+		dataFile = fopen((filename + ".dat").c_str(), "wb");
+		float* temp = new float[400000];
+
+#define copyToTemp(src, count) cudaMemcpy(temp, src, count * sizeof(float), cudaMemcpyDeviceToHost)
+#define saveTempToFile(count) fwrite(temp, sizeof(float), count, dataFile)
+
+		copyToTemp(d_pconv1, 500);
+		saveTempToFile(500);
+		copyToTemp(d_pconv1bias, 20);
+		saveTempToFile(20);
+		copyToTemp(d_pconv2, 25000);
+		saveTempToFile(25000);
+		copyToTemp(d_pconv2bias, 50);
+		saveTempToFile(50);
+		copyToTemp(d_pfc1, 400000);
+		saveTempToFile(400000);
+		copyToTemp(d_pfc1bias, 500);
+		saveTempToFile(500);
+		copyToTemp(d_pfc2, 5000);
+		saveTempToFile(5000);
+		copyToTemp(d_pfc2bias, 10);
+		saveTempToFile(10);
+		copyToTemp(d_onevec, 64);
+		saveTempToFile(64);
+
+		fclose(dataFile);
+		delete[] temp;
+	}
+
+	void loadFromFile(std::string filename,
+		float* d_pconv1, float* d_pconv1bias,
+		float* d_pconv2, float* d_pconv2bias,
+		float* d_pfc1, float* d_pfc1bias,
+		float* d_pfc2, float* d_pfc2bias,
+		float* d_onevec) {
+		FILE* dataFile;
+		dataFile = fopen((filename + ".dat").c_str(), "rb");
+		float* temp = new float[400000];
+
+#define loadTempFromFile(count) fread(temp, sizeof(float), count, dataFile)
+#define copyToHost(dst, count) cudaMemcpy(dst, temp, count*sizeof(float), cudaMemcpyHostToDevice);
+
+
+		loadTempFromFile(500);
+		copyToHost(d_pconv1, 500);
+		loadTempFromFile(20);
+		copyToHost(d_pconv1bias, 20);
+		loadTempFromFile(25000);
+		copyToHost(d_pconv2, 25000);
+		loadTempFromFile(50);
+		copyToHost(d_pconv2bias, 50);
+		loadTempFromFile(400000);
+		copyToHost(d_pfc1, 400000);
+		loadTempFromFile(500);
+		copyToHost(d_pfc1bias, 500);
+		loadTempFromFile(5000);
+		copyToHost(d_pfc2, 5000);
+		loadTempFromFile(10);
+		copyToHost(d_pfc2bias, 10);
+		loadTempFromFile(64);
+		copyToHost(d_onevec, 64);
+	
+
+		fclose(dataFile);
+		delete[] temp;
+	}
+
+	
 	void testResult(int test_size,
-		ConvBiasLayer conv1, MaxPoolLayer pool1,
-		ConvBiasLayer conv2, MaxPoolLayer pool2,
-		FullyConnectedLayer fc1, FullyConnectedLayer fc2,
-		float *d_conv1, float *d_pool1,
-		float *d_conv2, float *d_pool2,
-		float *d_fc1, float *d_fc1relu,
-		float *d_fc2, float *d_fc2smax,
-		float *d_pconv1, float *d_pconv1bias,
-		float *d_pconv2, float *d_pconv2bias,
-		float *d_pfc1, float *d_pfc1bias,
-		float *d_pfc2, float *d_pfc2bias,
-		float * d_onevec, void* d_cudnn_workspace,
-		float * d_data,
-		int width, int height, int channels,
 		unsigned char* test_images, unsigned char *test_labels) {
-		float classification_error = 1.0f;
+
+		float classification_error;
 		int classifications = test_size;
-		// Initialize a TrainingContext structure for testing (different batch size)
+		int width = 28;
+		int height = 28;
+		int channels = 1;
+
+		ConvBiasLayer conv1((int)channels, 20, 5, (int)width, (int)height);
+		MaxPoolLayer pool1(2, 2);
+		ConvBiasLayer conv2(conv1.out_channels, 50, 5, conv1.out_width / pool1.stride, conv1.out_height / pool1.stride);
+		MaxPoolLayer pool2(2, 2);
+		FullyConnectedLayer fc1((conv2.out_channels * conv2.out_width * conv2.out_height) / (pool2.stride * pool2.stride),
+			500);
+		FullyConnectedLayer fc2(fc1.outputs, 10);
+
 		TrainingContext test_context(FLAGS_gpu, 1, conv1, pool1, conv2, pool2, fc1, fc2);
 
+		float *d_data, *d_conv1, *d_pool1, *d_conv2, *d_pool2, *d_fc1, *d_fc1relu, *d_fc2, *d_fc2smax;
+		//                         Buffer    | Element       | N                   | C                  | H                                 | W
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		checkCudaErrors(cudaMalloc(&d_data, 200704));
+		checkCudaErrors(cudaMalloc(&d_conv1, 2949120));
+		checkCudaErrors(cudaMalloc(&d_pool1, 737280));
+		checkCudaErrors(cudaMalloc(&d_conv2, 819200));
+		checkCudaErrors(cudaMalloc(&d_pool2, 204800));
+		checkCudaErrors(cudaMalloc(&d_fc1, 128000));
+		checkCudaErrors(cudaMalloc(&d_fc1relu, 128000));
+		checkCudaErrors(cudaMalloc(&d_fc2, 128000));
+		checkCudaErrors(cudaMalloc(&d_fc2smax, 128000));
+
+		// Initialize a TrainingContext structure for testing (different batch size)
+		
+
 		int num_errors = 0;
+
+		float *d_pconv1, *d_pconv1bias, *d_pconv2, *d_pconv2bias;
+		float *d_pfc1, *d_pfc1bias, *d_pfc2, *d_pfc2bias;
+		float* d_onevec;
+		void * d_cudnn_workspace;
+		checkCudaErrors(cudaMalloc(&d_pconv1, sizeof(float) * 500));
+		checkCudaErrors(cudaMalloc(&d_pconv1bias, sizeof(float) * 20));
+		checkCudaErrors(cudaMalloc(&d_pconv2, sizeof(float) * 25000));
+		checkCudaErrors(cudaMalloc(&d_pconv2bias, sizeof(float) * 50));
+		checkCudaErrors(cudaMalloc(&d_pfc1, sizeof(float) * 400000));
+		checkCudaErrors(cudaMalloc(&d_pfc1bias, sizeof(float) * 500));
+		checkCudaErrors(cudaMalloc(&d_pfc2, sizeof(float) * 5000));
+		checkCudaErrors(cudaMalloc(&d_pfc2bias, sizeof(float) * 10));
+		checkCudaErrors(cudaMalloc(&d_onevec, sizeof(float) * 64));
+		checkCudaErrors(cudaMalloc(&d_cudnn_workspace, 3464));
+
+		loadFromFile(DATA_FILE_NAME, d_pconv1, d_pconv1bias, d_pconv2, d_pconv2bias, d_pfc1, d_pfc1bias, d_pfc2, d_pfc2bias, d_onevec);
 
 		for (int i = 0; i < classifications; ++i) {
 			std::vector<float> data(width * height);
@@ -664,7 +783,27 @@ namespace Lenet {
 		classification_error = (float)num_errors / (float)classifications;
 
 		printf("Classification result: %.2f%% error (used %d images)\n", classification_error * 100.0f, (int)classifications);
+
+		checkCudaErrors(cudaFree(d_data));
+		checkCudaErrors(cudaFree(d_conv1));
+		checkCudaErrors(cudaFree(d_pool1));
+		checkCudaErrors(cudaFree(d_conv2));
+		checkCudaErrors(cudaFree(d_pool2));
+		checkCudaErrors(cudaFree(d_fc1));
+		checkCudaErrors(cudaFree(d_fc2));
+
+		checkCudaErrors(cudaFree(d_pconv1));
+		checkCudaErrors(cudaFree(d_pconv1bias));
+		checkCudaErrors(cudaFree(d_pconv2));
+		checkCudaErrors(cudaFree(d_pconv2bias));
+		checkCudaErrors(cudaFree(d_pfc1));
+		checkCudaErrors(cudaFree(d_pfc1bias));
+		checkCudaErrors(cudaFree(d_pfc2));
+		checkCudaErrors(cudaFree(d_pfc2bias));
+		checkCudaErrors(cudaFree(d_onevec));
 	}
+	
+	
 
 	int mainLenet(int argc, char** argv) {
 		int width, height, channels = 1;
@@ -753,6 +892,7 @@ namespace Lenet {
 		checkCudaErrors(cudaMalloc(&d_fc1relu, sizeof(float) * context.m_batchSize * fc1.outputs));
 		checkCudaErrors(cudaMalloc(&d_fc2, sizeof(float) * context.m_batchSize * fc2.outputs));
 		checkCudaErrors(cudaMalloc(&d_fc2smax, sizeof(float) * context.m_batchSize * fc2.outputs));
+
 
 		// Network parameters
 		float *d_pconv1, *d_pconv1bias, *d_pconv2, *d_pconv2bias;
@@ -865,9 +1005,10 @@ namespace Lenet {
 
 		printf("Iteration time: %f ms\n", std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() / 1000.0f / FLAGS_iterations);
 
+		saveToFile(DATA_FILE_NAME, d_pconv1, d_pconv1bias, d_pconv2, d_pconv2bias, d_pfc1, d_pfc1bias, d_pfc2, d_pfc2bias, d_onevec);
+
 		// Test the resulting neural network's classification
-		testResult(test_size, conv1, pool1, conv2, pool2, fc1, fc2, d_conv1, d_pool1, d_pool2, d_conv2, d_fc1, d_fc1relu, d_fc2, d_fc2smax, d_pconv1,
-			d_pconv1bias, d_pconv2, d_pconv1bias, d_pfc1, d_pfc1bias, d_pfc2, d_pfc2bias, d_onevec, d_cudnn_workspace, d_data, width, height, channels, &test_images[0], &test_labels[0]);
+		testResult(test_size, &test_images[0], &test_labels[0]);
 
 
 		// Free data structures
@@ -877,7 +1018,10 @@ namespace Lenet {
 		checkCudaErrors(cudaFree(d_conv2));
 		checkCudaErrors(cudaFree(d_pool2));
 		checkCudaErrors(cudaFree(d_fc1));
+		checkCudaErrors(cudaFree(d_fc1relu));
 		checkCudaErrors(cudaFree(d_fc2));
+		checkCudaErrors(cudaFree(d_fc2smax));
+
 		checkCudaErrors(cudaFree(d_pconv1));
 		checkCudaErrors(cudaFree(d_pconv1bias));
 		checkCudaErrors(cudaFree(d_pconv2));
@@ -886,6 +1030,8 @@ namespace Lenet {
 		checkCudaErrors(cudaFree(d_pfc1bias));
 		checkCudaErrors(cudaFree(d_pfc2));
 		checkCudaErrors(cudaFree(d_pfc2bias));
+		checkCudaErrors(cudaFree(d_onevec));
+
 		checkCudaErrors(cudaFree(d_gconv1));
 		checkCudaErrors(cudaFree(d_gconv1bias));
 		checkCudaErrors(cudaFree(d_gconv2));

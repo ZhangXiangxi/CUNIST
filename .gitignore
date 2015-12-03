@@ -15,7 +15,7 @@
 
 *.so
 *.dylib
-*.dll
+.bmp
 
 *.mod
 
