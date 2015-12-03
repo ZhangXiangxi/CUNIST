@@ -38,6 +38,13 @@ public class WriteCanvas extends Canvas {
         canvasListener = new CanvasListener(this);
         addMouseListener(canvasListener);
         addMouseMotionListener(canvasListener);
+        double[] test = new double[10];
+        float[] testByte = new float[widthAndHeight*widthAndHeight];
+        for (float b: testByte
+             ) {
+            b = 1;
+        }
+        int sta = calculateByGPU.get(testByte, test);
     }
     public void clear(){
         Graphics2D graphics2D = (Graphics2D) getGraphics();
@@ -53,7 +60,7 @@ public class WriteCanvas extends Canvas {
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setColor(Color.red);
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setStroke(new BasicStroke(8f));
+        graphics2D.setStroke(new BasicStroke(26.2f));
         if (! first){
             graphics2D.drawLine(prePoints[0], prePoints[1], nowPoints[0], nowPoints[1]);
         }
@@ -79,7 +86,7 @@ public class WriteCanvas extends Canvas {
                 canvas.paint(canvas.getGraphics());
                 Graphics2D graphics2D = (Graphics2D) image.getGraphics();
                 graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                graphics2D.setStroke(new BasicStroke(12.2f));
+                graphics2D.setStroke(new BasicStroke(26.2f));
                 graphics2D.drawLine(canvas.prePoints[0], canvas.prePoints[1],
                         canvas.nowPoints[0], canvas.nowPoints[1]);
             }
@@ -96,15 +103,16 @@ public class WriteCanvas extends Canvas {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            byte[] grayByte = new byte[widthAndHeight*widthAndHeight];
+            float[] grayByte = new float[widthAndHeight*widthAndHeight];
             for (int i = 0; i < newImage.getHeight(); i++) {
                 for (int j = 0; j < newImage.getWidth(); j++) {
                     int gr = new Color(newImage.getRGB(j, i)).getGreen();
-                    if (gr != 0 ){
-                        dotMatrixCanvas.madeRed(j+1, i+1);
+                    if (gr != 0 ) {
+                        dotMatrixCanvas.madeRed(j + 1, i + 1);
                     }
-                    grayByte[i*widthAndHeight+j] = (byte)gr;
+                    grayByte[i*widthAndHeight+j] = (float)(gr/255.0);
                 }
+                System.out.println();
             }
             int max = 0;
             double[] pro = new double[10];
